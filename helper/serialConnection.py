@@ -1,3 +1,4 @@
+import sys, glob
 from sys import modules
 from sys import platform
 from serial.tools import list_ports
@@ -5,6 +6,9 @@ from serial import Serial, SerialException
 
 class SerialConnection:
     def __init__(self):
+        self.openConnection()
+
+    def openConnection(self):
         '''
         Open serial connection if not extist and add to main (root) application
         '''
@@ -18,7 +22,7 @@ class SerialConnection:
             if ports:
                 for port in self.getPorts():
                     try:
-                        mainApp.serialConnection = Serial(port, baudrate = 19200, timeout = .5)
+                        mainApp.serialConnection = Serial(port, baudrate = 115200, timeout = .5)
                         break
                     except (OSError, SerialException):
                         pass
@@ -30,7 +34,8 @@ class SerialConnection:
             else:
                 print('No Serial Port found')
                 mainApp.serialConnection = Serial()
-        
+
+        print(mainApp.serialConnection)
         self.connection = mainApp.serialConnection
 
     def getPorts(self):
@@ -52,8 +57,16 @@ class SerialConnection:
         if self.connection.is_open:
             self.connection.write(code.encode())
             return True
+
+        print('write serial error')
         return False
     
     def read(self):
-        return self.connection.readline()
+        if self.connection.is_open:
+            return self.connection.readline()
+
+        print('read serial false')
+        return False
+     
+        
         
