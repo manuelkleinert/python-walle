@@ -1,3 +1,4 @@
+import json
 from threading import Thread
 from time import sleep
 from tkinter import Tk, Frame, Entry
@@ -13,7 +14,7 @@ class serialReader(Thread):
     def run(self):
         while self.running:
             print(self.connection.read())
-            sleep(.01)
+            sleep(.1)
             # self.connection.flush()
     def stop(self):
         self.running = False
@@ -27,16 +28,37 @@ class serialWrite(Thread):
         self.servoInt = servoInt
         self.servoSpeed = servoSpeed
     def run(self):
-        while self.running:
-            # self.servoPos = self.servoInt.get()
+        while self.running: 
+            self.serialData = {
+                'servos' : [{
+                    'pin': 4,
+                    'pos': 500,
+                    'speed': 1, 
+                },{
+                    'pin': 5,
+                    'pos': 500,
+                    'speed': 1, 
+                },{
+                    'pin': 6,
+                    'pos': 500,
+                    'speed': 1, 
+                },{
+                    'pin': 0,
+                    'pos': 500,
+                    'speed': 1, 
+                },{
+                    'pin': 1,
+                    'pos': 500,
+                    'speed': 1, 
+                }]
+            }
 
-            # if self.servoPos == "":
-            #     self.servoPos = "300"
-            
-            # print("Python JS: {\"sPin\":" + self.servoSelect.get() + ",\"Pos\":" + self.servoInt.get() +"}")
-            
-            if (not self.connection.write("{\"sPin\":" + self.servoSelect.get() + ",\"Pos\":" + self.servoInt.get() +",\"Speed\":" + self.servoSpeed.get() +" }")):
+            self.json = json.dumps(self.serialData)
+            if (not self.connection.write(self.json)):
                 print('SEND False')
+      
+            #if (not self.connection.write("{\"pin\":" + self.servoSelect.get() + ",\"pos\":" + self.servoInt.get() +",\"speed\":" + self.servoSpeed.get() +" }")):
+                #print('SEND False')
             sleep(1)
     def stop(self):
         self.running = False
@@ -64,6 +86,7 @@ class Application(Frame):
 
         self.serialReaderThread = serialReader(self.connection)
         self.serialReaderThread.start()
+
 
 app = Application(Tk())
 app.mainloop()
