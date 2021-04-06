@@ -1,4 +1,4 @@
-from tkinter import Frame, Label, StringVar, OptionMenu, W
+from tkinter import Frame, Label, StringVar, OptionMenu, W, Entry
 
 class Select(Frame):
     def __init__(self, master = None, labelText = '', options = [], width = 30):
@@ -31,3 +31,27 @@ class Select(Frame):
     
     def setValue(self, value):
         self.var.set(value)
+
+
+class TextField(Frame):
+    def __init__(self, master = None, labelText = '', options = [], width = 30):
+        '''
+        Create a imput with label
+        '''
+        Frame.__init__(self, master)
+        
+        self.pack()
+        
+        self.options = options
+        
+        self.label = Label(self, anchor = W, text = labelText, width = width)
+        self.label.pack(side = 'left')
+        
+        self.input = Entry(self)
+        self.input.pack(side='right')
+        
+    def get(self):
+        return self.input.get()
+    
+    def setValue(self, value):
+        self.input.set(value)
