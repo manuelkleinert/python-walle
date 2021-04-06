@@ -54,4 +54,5 @@ class TextField(Frame):
         return self.input.get()
     
     def setValue(self, value):
-        self.input.set(value)
+        self.input.delete(0,"end")
+        self.input.insert(0, value)

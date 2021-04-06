@@ -37,7 +37,7 @@ class serialWrite(Thread):
             
             if (not self.connection.write("{\"sPin\":" + self.servoSelect.get() + ",\"Pos\":" + self.servoInt.get() +",\"Speed\":" + self.servoSpeed.get() +" }")):
                 print('SEND False')
-            sleep(.8)
+            sleep(1)
     def stop(self):
         self.running = False
 
@@ -52,9 +52,11 @@ class Application(Frame):
         self.servoSelect.setValue('0')
 
         self.servoInt = TextField(master, 'Go To')
+        self.servoInt.setValue(300)
         self.servoInt.pack()
         
         self.servoSpeed = TextField(master, 'Speed')
+        self.servoSpeed.setValue(1)
         self.servoSpeed.pack()
 
         self.serialWriteThread = serialWrite(self.connection, self.servoSelect, self.servoInt, self.servoSpeed)
