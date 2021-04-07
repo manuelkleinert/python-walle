@@ -14,7 +14,7 @@ class serialReader(Thread):
     def run(self):
         while self.running:
             print(self.connection.read())
-            sleep(.1)
+            sleep(.01)
             # self.connection.flush()
     def stop(self):
         self.running = False
@@ -28,38 +28,41 @@ class serialWrite(Thread):
         self.servoInt = servoInt
         self.servoSpeed = servoSpeed
     def run(self):
-        while self.running: 
-            self.serialData = {
-                'servos' : [{
-                    'pin': 4,
-                    'pos': 500,
-                    'speed': 1, 
+
+        self.serialData = {
+                "servos" : [{
+                    "pin": 4,
+                    "pos": 500,
+                    "speed": 1, 
                 },{
-                    'pin': 5,
-                    'pos': 500,
-                    'speed': 1, 
+                    "pin": 5,
+                    "pos": 500,
+                    "speed": 1, 
                 },{
-                    'pin': 6,
-                    'pos': 500,
-                    'speed': 1, 
+                    "pin": 6,
+                    "pos": 500,
+                    "speed": 1, 
                 },{
-                    'pin': 0,
-                    'pos': 500,
-                    'speed': 1, 
+                    "pin": 0,
+                    "pos": 500,
+                    "speed": 1, 
                 },{
-                    'pin': 1,
-                    'pos': 500,
-                    'speed': 1, 
+                    "pin": 1,
+                    "pos": 500,
+                    "speed": 1, 
                 }]
             }
 
-            self.json = json.dumps(self.serialData)
-            if (not self.connection.write(self.json)):
-                print('SEND False')
+        while self.running:
+            # self.json = json.dumps(self.serialData)
+            # print('SEND Now: ' + self.json)
+
+            # if (not self.connection.write(self.json)):
+               # print('SEND False')
       
-            #if (not self.connection.write("{\"pin\":" + self.servoSelect.get() + ",\"pos\":" + self.servoInt.get() +",\"speed\":" + self.servoSpeed.get() +" }")):
-                #print('SEND False')
-            sleep(1)
+            if (not self.connection.write("{\"pin\":" + self.servoSelect.get() + ",\"pos\":" + self.servoInt.get() +",\"speed\":" + self.servoSpeed.get() +" }")):
+                print('SEND False')
+            sleep(2)
     def stop(self):
         self.running = False
 
