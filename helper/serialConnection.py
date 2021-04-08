@@ -35,7 +35,6 @@ class SerialConnection:
                 print('No Serial Port found')
                 mainApp.serialConnection = Serial()
 
-        print(mainApp.serialConnection)
         self.connection = mainApp.serialConnection
 
     def getPorts(self):
@@ -68,5 +67,4 @@ class SerialConnection:
         print('read serial false')
         return False
      
-        
         
