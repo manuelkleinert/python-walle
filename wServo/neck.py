@@ -4,7 +4,7 @@ class Neck:
     def __init__(self, *args):
         self.wsw = SerialWrite();
 
-    def default(self, speed = 1):
+    def center(self, speed = 1):
         self.wsw.addData({
             'pin': 4,
             'pos': 300,
@@ -13,7 +13,7 @@ class Neck:
 
         self.wsw.addData({
             'pin': 5,
-            'pos': 300,
+            'pos': 200,
             'speed': 1
         })
 
@@ -26,7 +26,7 @@ class Neck:
 
         self.wsw.addData({
             'pin': 5,
-            'pos': 500,
+            'pos': 350,
             'speed': speed
         })
 
@@ -43,3 +43,16 @@ class Neck:
             'speed': speed
         })
     
+    def showUp(self, speed = 1):
+        self.wsw.addData({
+            'pin': 5,
+            'pos': 100,
+            'speed': speed
+        })
+
+    def showDown(self, speed = 1):
+        self.wsw.addData({
+            'pin': 5,
+            'pos': 500,
+            'speed': speed
+        })

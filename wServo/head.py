@@ -3,11 +3,13 @@ from wSerial.write import SerialWrite
 class Head:
     def __init__(self, *args):
         self.wsw = SerialWrite();
+        print("Head init");
 
-    def default(self, speed = 1):
+    def center(self, speed = 1):
+        print("Head D")
         self.wsw.addData({
             'pin': 6,
-            'pos': 300,
+            'pos': 310,
             'speed': speed
         })
 

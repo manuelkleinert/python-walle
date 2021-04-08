@@ -11,35 +11,38 @@ class SerialWrite():
         self.connection = SerialConnection()
         self.wsr = SerialReader()
         self.running = True
-        self.serialData = []
+        
         
         # Main app
-        mainApp = modules['__main__']
-        
-        # Set serial connection
-        if not hasattr(mainApp, 'serialWriteThread'):
-            mainApp.serialWriteThread = Thread(target=self.run)
-            mainApp.serialWriteThread.start()
+        self.mainApp = modules['__main__']
 
-        self.serialWriteThread = mainApp.serialWriteThread
+        if not hasattr(self.mainApp, 'serialData'):
+            self.mainApp.serialData = []
+        
+        if not hasattr(self.mainApp, 'serialWriteThread'):
+            print('creat serialWriteThread')
+            self.mainApp.serialWriteThread = Thread(target=self.run)
+            self.mainApp.serialWriteThread.start()
+
+        self.serialWriteThread = self.mainApp.serialWriteThread
 
     def run(self):
         while self.running:
-            if not self.serialData:
+            if not self.mainApp.serialData:
                 continue;
                 
-            for i in range(len(self.serialData)):
+            for i in range(len(self.mainApp.serialData)):
                 print('SEND :::::')
-                print(self.serialData[i])
-                if (not self.connection.write(json.dumps(self.serialData[i]))):
+                print(self.mainApp.serialData[i])
+                if (not self.connection.write(json.dumps(self.mainApp.serialData[i]))):
                     print('SEND False')
                     break;
                 sleep(0.2)
                 
-            self.serialData = []
+            self.mainApp.serialData = []
 
     def addData(self, serialData = []):
-        self.serialData.append(serialData)
+        self.mainApp.serialData.append(serialData)
     
     def stop(self):
         self.running = False

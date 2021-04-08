@@ -12,12 +12,15 @@ class SerialReader():
         # Main app
         mainApp = modules['__main__']
         
-        # Set serial connection
         if not hasattr(mainApp, 'serialReadThread'):
+            print('creat serialReadThread')
             mainApp.serialReadThread = Thread(target=self.run)
             mainApp.serialReadThread.start()
 
         self.serialReadThread = mainApp.serialReadThread
+
+        print('INIT END')
+        print(self.serialReadThread)
 
     def run(self):
         while self.running:
