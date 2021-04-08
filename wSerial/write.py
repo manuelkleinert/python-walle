@@ -12,7 +12,6 @@ class SerialWrite():
         self.wsr = SerialReader()
         self.running = True
         
-        
         # Main app
         self.mainApp = modules['__main__']
 
@@ -20,7 +19,6 @@ class SerialWrite():
             self.mainApp.serialData = []
         
         if not hasattr(self.mainApp, 'serialWriteThread'):
-            print('creat serialWriteThread')
             self.mainApp.serialWriteThread = Thread(target=self.run)
             self.mainApp.serialWriteThread.start()
 
@@ -32,8 +30,6 @@ class SerialWrite():
                 continue;
                 
             for i in range(len(self.mainApp.serialData)):
-                print('SEND :::::')
-                print(self.mainApp.serialData[i])
                 if (not self.connection.write(json.dumps(self.mainApp.serialData[i]))):
                     print('SEND False')
                     break;

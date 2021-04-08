@@ -14,9 +14,6 @@ class Application(Frame):
         self.head = Head()
         self.neck = Neck()
 
-        self.head.center()
-        self.neck.down()
-
         self.btNup = Button(master, text="Neck UP", command=lambda:self.neck.up(3))
         self.btNup.pack()
 
