@@ -9,21 +9,21 @@ class Head:
         print("Head D")
         self.wsw.addData({
             'pin': 6,
-            'pos': 310,
+            'pos': 270,
             'speed': speed
         })
 
     def left(self, speed = 1):
         self.wsw.addData({
             'pin': 6,
-            'pos': 500,
+            'pos': 460,
             'speed': speed
         })
 
     def right(self, speed = 1):
         self.wsw.addData({
             'pin': 6,
-            'pos': 100,
+            'pos': 50,
             'speed': speed
         })
     

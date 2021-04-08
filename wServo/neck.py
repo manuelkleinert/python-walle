@@ -7,14 +7,14 @@ class Neck:
     def center(self, speed = 1):
         self.wsw.addData({
             'pin': 4,
-            'pos': 300,
+            'pos': 302,
             'speed': speed
         })
 
         self.wsw.addData({
             'pin': 5,
-            'pos': 200,
-            'speed': 1
+            'pos': 220,
+            'speed': speed
         })
 
     def up(self, speed = 1):
