@@ -34,7 +34,7 @@ class SerialWrite():
                 if (not self.connection.write(json.dumps(self.serialData[i]))):
                     print('SEND False')
                     break;
-                sleep(0.5)
+                sleep(0.2)
                 
             self.serialData = []
 
