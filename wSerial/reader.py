@@ -1,9 +1,10 @@
 import sys, glob
 from sys import modules
+from time import sleep
 from threading import Thread
 from helper.serialConnection import SerialConnection
 
-class serialWrite():
+class SerialReader():
     def __init__(self):
         self.connection = SerialConnection()
         self.running = True
@@ -16,7 +17,7 @@ class serialWrite():
             mainApp.serialReadThread = Thread(target=self.run)
             mainApp.serialReadThread.start()
 
-        self.serialWrite = mainApp.serialWriteThread
+        self.serialReadThread = mainApp.serialReadThread
 
     def run(self):
         while self.running:

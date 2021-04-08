@@ -4,8 +4,7 @@ from helper.serialConnection import SerialConnection
 from helper.form import Select, TextField
 
 from wServo.neck import Neck
-
-
+from wServo.head import Head
 
 class Application(Frame):
     def __init__(self, master):
@@ -13,12 +12,26 @@ class Application(Frame):
         self.pack()
 
         self.neck = Neck()
+        self.head = Head()
 
-        self.btNu = Button(master, text="Neck UP", command=self.neck.up)
-        self.btNu.pack()
+        self.btNup = Button(master, text="Neck UP", command=lambda:self.neck.up(2))
+        self.btNup.pack()
 
-        self.btNd = Button(master, text="Neck Down", command=self.neck.down)
+        self.btNd = Button(master, text="Neck Center", command=lambda:self.neck.default(2))
         self.btNd.pack()
+
+        self.btNdown = Button(master, text="Neck Down", command=lambda:self.neck.down(2))
+        self.btNdown.pack()
+
+        self.btHleft = Button(master, text="Head Left", command=lambda:self.head.left(2))
+        self.btHleft.pack()
+
+        self.btHdefault = Button(master, text="Head Center", command=lambda:self.head.default(2))
+        self.btHdefault.pack()
+
+        self.btHright = Button(master, text="Head Right", command=lambda:self.head.right(2))
+        self.btHright.pack()
+
 
         # self.connection = SerialConnection()
 

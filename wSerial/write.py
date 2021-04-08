@@ -3,10 +3,13 @@ from time import sleep
 from sys import modules
 from threading import Thread
 from helper.serialConnection import SerialConnection
+from wSerial.reader import SerialReader
 
-class serialWrite():
+
+class SerialWrite():
     def __init__(self):
         self.connection = SerialConnection()
+        self.wsr = SerialReader()
         self.running = True
         self.serialData = []
         
@@ -18,7 +21,7 @@ class serialWrite():
             mainApp.serialWriteThread = Thread(target=self.run)
             mainApp.serialWriteThread.start()
 
-        self.serialWrite = mainApp.serialWriteThread
+        self.serialWriteThread = mainApp.serialWriteThread
 
     def run(self):
         while self.running:
@@ -31,8 +34,9 @@ class serialWrite():
                 if (not self.connection.write(json.dumps(self.serialData[i]))):
                     print('SEND False')
                     break;
-                # self.serialData.pop(i)
-                sleep(0.1)
+                sleep(0.5)
+                
+            self.serialData = []
 
     def addData(self, serialData = []):
         self.serialData.append(serialData)
