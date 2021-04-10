@@ -2,11 +2,13 @@ from time import sleep
 from tkinter import Tk, Frame, Entry, Button, LEFT, BOTTOM
 from helper.serialConnection import SerialConnection
 from helper.form import Select, TextField
+
 from wSerial.write import SerialWrite
 
 from wServo.neck import Neck
 from wServo.head import Head
 from wServo.eyes import Eyes
+from wMotor.motor import Motor
 
 class Application(Frame):
     def __init__(self, master):
@@ -19,6 +21,7 @@ class Application(Frame):
         self.head = Head()
         self.neck = Neck()
 
+        self.motor = Motor()
 
         self.servoSelect = Select(self, 'SERVO:', {'0':'0', '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'10', '11':'11', '12':'12', '13':'13', '14':'14'})
         self.servoSelect.setValue('0')
@@ -90,6 +93,21 @@ class Application(Frame):
         self.btEright = Button(frameEyes, text="Eyes Up", command=lambda:self.eyes.up(4))
         self.btEright.pack(side = LEFT)
 
+
+        frameMotor = Frame(self)
+        frameMotor.pack(side = BOTTOM, padx=10, pady=10)
+
+        self.btMleft = Button(frameMotor, text="Motor Left", command=lambda:self.motor.left())
+        self.btMleft.pack(side = LEFT)
+
+        self.btMdefault = Button(frameMotor, text="Motor Straight", command=lambda:self.motor.straight())
+        self.btMdefault.pack(side = LEFT)
+        
+        self.btMdefault = Button(frameMotor, text="Motor Back", command=lambda:self.motor.back())
+        self.btMdefault.pack(side = LEFT)
+
+        self.btMright = Button(frameMotor, text="Motor Right", command=lambda:self.motor.right())
+        self.btMright.pack(side = LEFT)
 
 app = Application(Tk())
 app.mainloop()
