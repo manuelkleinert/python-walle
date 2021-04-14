@@ -28,7 +28,6 @@ class SerialWrite():
         while self.running:
             if not self.mainApp.serialData:
                 continue;
-                
             for i in range(len(self.mainApp.serialData)):
                 if (not self.connection.write(json.dumps(self.mainApp.serialData[i]))):
                     print('SEND False')
