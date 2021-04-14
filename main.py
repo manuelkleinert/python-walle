@@ -8,7 +8,9 @@ from wSerial.write import SerialWrite
 from wServo.neck import Neck
 from wServo.head import Head
 from wServo.eyes import Eyes
+from wServo.arms import Arms
 from wMotor.motor import Motor
+
 
 class Application(Frame):
     def __init__(self, master):
@@ -20,6 +22,7 @@ class Application(Frame):
         self.eyes = Eyes()
         self.head = Head()
         self.neck = Neck()
+        self.arms = Arms()
 
         self.motor = Motor()
 
@@ -32,12 +35,22 @@ class Application(Frame):
         self.servoSpeed = TextField(self, 'Speed')
         self.servoSpeed.setValue(1)
 
-        self.submit = Button(self, text="Submit", command=lambda:self.wsw.addData({
-            'pin': self.servoSelect.get(),
-            'pos': self.servoInt.get(),
-            'speed': self.servoSpeed.get()
-        }))
+        self.submit = Button(self, text="Submit", command=self.sendForm)
         self.submit.pack()
+
+
+        frameArms = Frame(self)
+        frameArms.pack(side = BOTTOM, padx=10, pady=10)
+
+        self.btArUp = Button(frameArms, text="Arm right UP", command=lambda:self.arms.rightUp())
+        self.btArUp.pack(side = LEFT)
+
+        self.btArC = Button(frameArms, text="Arm right Center", command=lambda:self.arms.rightCenter())
+        self.btArC.pack(side = LEFT)
+
+        self.btArDown = Button(frameArms, text="Arm right Down", command=lambda:self.arms.rightDown())
+        self.btArDown.pack(side = LEFT)
+
 
         frameNeck = Frame(self)
         frameNeck.pack(side = BOTTOM, padx=10, pady=10)
@@ -108,6 +121,14 @@ class Application(Frame):
 
         self.btMright = Button(frameMotor, text="Motor Right", command=lambda:self.motor.right())
         self.btMright.pack(side = LEFT)
+
+
+    def sendForm(self):
+        self.wsw.addData({
+            'pin': int(self.servoSelect.get()),
+            'pos': int(self.servoInt.get()),
+            'speed': int(self.servoSpeed.get())
+        })
 
 app = Application(Tk())
 app.mainloop()
