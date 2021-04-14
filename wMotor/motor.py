@@ -19,12 +19,12 @@ class Motor:
 
     def right(self, speed = 200):
         self.wsw.addData({
-            'dir': [1,0], # Direction
+            'dir': [0,1], # Direction
             'speed': [speed, speed]
         })
 
     def left(self, speed = 200):
         self.wsw.addData({
-            'dir': [0,1], # Direction
+            'dir': [1,0], # Direction
             'speed': [speed, speed]
         })
