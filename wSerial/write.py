@@ -5,7 +5,6 @@ from threading import Thread
 from helper.serialConnection import SerialConnection
 from wSerial.reader import SerialReader
 
-
 class SerialWrite():
     def __init__(self):
         self.connection = SerialConnection()
@@ -33,7 +32,7 @@ class SerialWrite():
                 if (not self.connection.write(json.dumps(self.mainApp.serialData[i]))):
                     print('SEND False')
                     break;
-                sleep(0.1)
+                sleep(0.2)
                 
             self.mainApp.serialData = []
 

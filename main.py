@@ -39,17 +39,29 @@ class Application(Frame):
         self.submit.pack()
 
 
-        frameArms = Frame(self)
-        frameArms.pack(side = BOTTOM, padx=10, pady=10)
+        frameArmR = Frame(self)
+        frameArmR.pack(side = BOTTOM, padx=10, pady=10)
 
-        self.btArUp = Button(frameArms, text="Arm right UP", command=lambda:self.arms.rightUp())
+        self.btArUp = Button(frameArmR, text="Arm right UP", command=lambda:self.arms.rightUp())
         self.btArUp.pack(side = LEFT)
 
-        self.btArC = Button(frameArms, text="Arm right Center", command=lambda:self.arms.rightCenter())
+        self.btArC = Button(frameArmR, text="Arm right Center", command=lambda:self.arms.rightCenter())
         self.btArC.pack(side = LEFT)
 
-        self.btArDown = Button(frameArms, text="Arm right Down", command=lambda:self.arms.rightDown())
+        self.btArDown = Button(frameArmR, text="Arm right Down", command=lambda:self.arms.rightDown())
         self.btArDown.pack(side = LEFT)
+
+        frameArmL = Frame(self)
+        frameArmL.pack(side = BOTTOM, padx=10, pady=10)
+
+        self.btAlUp = Button(frameArmL, text="Arm left UP", command=lambda:self.arms.leftUp())
+        self.btAlUp.pack(side = LEFT)
+
+        self.btAlC = Button(frameArmL, text="Arm left Center", command=lambda:self.arms.leftCenter())
+        self.btAlC.pack(side = LEFT)
+
+        self.btAlDown = Button(frameArmL, text="Arm left Down", command=lambda:self.arms.leftDown())
+        self.btAlDown.pack(side = LEFT)
 
 
         frameNeck = Frame(self)
