@@ -1,63 +1,43 @@
-from __future__ import print_function
-from PIL import Image
-from PIL import ImageTk
-from Tkinter import Frame, Label
-import threading
-import datetime
-import imutils
+import io
+import picamera
 import cv2
-import os
+import numpy
 
 class Cam(Frame):
     def __init__(self, master = None):
         Frame.__init__(self, master)
         self.pack()
+        
+        #Create a memory stream so photos doesn't need to be saved in a file
+		stream = io.BytesIO()
 
-"""         cap = cv2.VideoCapture(0)
+		#Get the picture (low resolution, so it should be quite fast)
+		#Here you can also specify other parameters (e.g.:rotate the image)
+		with picamera.PiCamera() as camera:
+			camera.resolution = (320, 240)
+			camera.capture(stream, format='jpeg')
 
-    def set():
-        self.camera.vflip=True
-        self.camera.hflip=True
-        self.camera.awb_mode='auto'
-        self.camera.exposure_mode='sports'
-        self.camera.video_stabilization=True
-        self.camera.preview_fullscreen=False
-        self.camera.preview_window=(48, 105, 800, 720)
-        self.camera.start_preview()
+		#Convert the picture into a numpy array
+		buff = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
 
-    def close():
-        self.camera.stop_preview()
-        self.camera.close() """
+		#Now creates an OpenCV image
+		image = cv2.imdecode(buff, 1)
 
-    def videoLoop(self):
-        # DISCLAIMER:
-		# I'm not a GUI developer, nor do I even pretend to be. This
-		# try/except statement is a pretty ugly hack to get around
-		# a RunTime error that Tkinter throws due to threading
-		try:
-			# keep looping over frames until we are instructed to stop
-			while not self.stopEvent.is_set():
-				# grab the frame from the video stream and resize it to
-				# have a maximum width of 300 pixels
-				self.frame = self.vs.read()
-				self.frame = imutils.resize(self.frame, width=300)
-		
-				# OpenCV represents images in BGR order; however PIL
-				# represents images in RGB order, so we need to swap
-				# the channels, then convert to PIL and ImageTk format
-				image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
-				image = Image.fromarray(image)
-				image = ImageTk.PhotoImage(image)
-		
-				# if the panel is not None, we need to initialize it
-				if self.panel is None:
-					self.panel = Label(image=image)
-					self.panel.image = image
-					self.panel.pack(side="left", padx=10, pady=10)
-		
-				# otherwise, simply update the panel
-				else:
-					self.panel.configure(image=image)
-					self.panel.image = image
-		except RuntimeError, e:
-			print("[INFO] caught a RuntimeError")
+		#Load a cascade file for detecting faces
+		face_cascade = cv2.CascadeClassifier('/usr/share/opencv/haarcascades/haarcascade_frontalface_alt.xml')
+
+		#Convert to grayscale
+		gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+
+		#Look for faces in the image using the loaded cascade file
+		faces = face_cascade.detectMultiScale(gray, 1.1, 5)
+
+		print "Found "+str(len(faces))+" face(s)"
+
+		#Draw a rectangle around every found face
+		for (x,y,w,h) in faces:
+			cv2.rectangle(image,(x,y),(x+w,y+h),(255,255,0),2)
+
+		#Save the result image
+		cv2.imwrite('result.jpg',image)
+        
