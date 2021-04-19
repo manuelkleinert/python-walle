@@ -11,7 +11,6 @@ class Motor:
                 'dir': [1,1], # Direction
                 'speed': [speedA, speedB]
             })
-            sleep(0.2)
 
     def back(self, speedA = 200, speedB = 200, loopCount = 1):
         for x in range(loopCount):
@@ -19,7 +18,6 @@ class Motor:
                 'dir': [0,0], # Direction
                 'speed': [speedA, speedB]
             })
-            sleep(0.2)
 
     def right(self, speed = 200, loopCount = 1):
         for x in range(loopCount):
@@ -27,7 +25,6 @@ class Motor:
                 'dir': [0,1], # Direction
                 'speed': [speed, speed]
             })
-            sleep(0.2)
 
     def left(self, speed = 200, loopCount = 1):
         for x in range(loopCount):
@@ -35,4 +32,3 @@ class Motor:
                 'dir': [1,0], # Direction
                 'speed': [speed, speed]
             })
-            sleep(0.2)

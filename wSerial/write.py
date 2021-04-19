@@ -29,11 +29,9 @@ class SerialWrite():
                 continue;
             for i in range(len(self.mainApp.serialData)):
 
-                if(self.mainApp.serialData[i].delay):
-                    sleep(self.mainApp.serialData[i].delay)
-                    delattr(self.mainApp.serialData[i], 'delay')
-
-                print(self.mainApp.serialData[i])
+                if('delay' in self.mainApp.serialData[i]):
+                    sleep(self.mainApp.serialData[i]['delay'])
+                    del self.mainApp.serialData[i]['delay']
 
                 if (not self.connection.write(json.dumps(self.mainApp.serialData[i]))):
                     print('SEND False')

@@ -26,9 +26,9 @@ class Application(Frame):
         self.neck = Neck()
         self.arms = Arms()
         self.motor = Motor()
-
         self.happy = Happy()
 
+        self.reset()
 
         self.servoSelect = Select(self, 'SERVO:', {'0':'0', '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'10', '11':'11', '12':'12', '13':'13', '14':'14'})
         self.servoSelect.setValue('0')
@@ -146,6 +146,13 @@ class Application(Frame):
         self.btHappyShake.pack(side = LEFT)
 
 
+        frameReset = Frame(self)
+        frameReset.pack(side = BOTTOM, padx=10, pady=10)
+
+        self.btReset = Button(frameReset, text="Reset", command=lambda:self.reset())
+        self.btReset.pack(side = LEFT)
+
+
 
     def sendForm(self):
         self.wsw.addData({
@@ -153,6 +160,14 @@ class Application(Frame):
             'pos': int(self.servoInt.get()),
             'speed': int(self.servoSpeed.get())
         })
+
+    def reset(self):
+        self.arms.leftDown()
+        self.arms.rightDown()
+        self.eyes.center()
+        self.neck.down()
+        self.head.center()
+
 
 app = Application(Tk())
 app.mainloop()
