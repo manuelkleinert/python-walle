@@ -11,6 +11,8 @@ from wServo.eyes import Eyes
 from wServo.arms import Arms
 from wMotor.motor import Motor
 
+from wEmotion.happy import Happy
+
 
 class Application(Frame):
     def __init__(self, master):
@@ -23,8 +25,10 @@ class Application(Frame):
         self.head = Head()
         self.neck = Neck()
         self.arms = Arms()
-
         self.motor = Motor()
+
+        self.happy = Happy()
+
 
         self.servoSelect = Select(self, 'SERVO:', {'0':'0', '1':'1', '2':'2', '3':'3', '4':'4', '5':'5', '6':'6', '7':'7', '8':'8', '9':'9', '10':'10', '11':'11', '12':'12', '13':'13', '14':'14'})
         self.servoSelect.setValue('0')
@@ -133,6 +137,14 @@ class Application(Frame):
 
         self.btMright = Button(frameMotor, text="Motor Right", command=lambda:self.motor.right())
         self.btMright.pack(side = LEFT)
+
+
+        frameEmotion = Frame(self)
+        frameEmotion.pack(side = BOTTOM, padx=10, pady=10)
+
+        self.btHappyShake = Button(frameEmotion, text="Happy Shake", command=lambda:self.happy.shake())
+        self.btHappyShake.pack(side = LEFT)
+
 
 
     def sendForm(self):
