@@ -5,14 +5,14 @@ class Motor:
 
         self.wsw = SerialWrite();
 
-    def straight(self, speedA = 200, speedB = 200, loopCount = 1):
+    def straight(self, speedA = 200, speedB = 200, loopCount = 2):
         for x in range(loopCount):
             self.wsw.addData({
                 'dir': [1,1], # Direction
                 'speed': [speedA, speedB]
             })
 
-    def back(self, speedA = 200, speedB = 200, loopCount = 1):
+    def back(self, speedA = 200, speedB = 200, loopCount = 2):
         for x in range(loopCount):
             self.wsw.addData({
                 'dir': [0,0], # Direction

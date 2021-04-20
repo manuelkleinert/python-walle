@@ -19,7 +19,11 @@ class Happy:
 
     def shake(self):
         self.eyes.down()
-        sleep(.5)
+        self.neck.down()
+        sleep(1)
+
+        self.neck.center()
+        sleep(1)
 
         self.arms.leftUp()
         sleep(.5)
@@ -38,21 +42,3 @@ class Happy:
         self.motor.left(200)
         sleep(.2)
         self.motor.right(200)
-
-'''     def back(self, speedA = 200, speedB = 200):
-        self.wsw.addData({
-            'dir': [0,0], # Direction
-            'speed': [speedA, speedB]
-        })
-
-    def right(self, speed = 200):
-        self.wsw.addData({
-            'dir': [0,1], # Direction
-            'speed': [speed, speed]
-        })
-
-    def left(self, speed = 200):
-        self.wsw.addData({
-            'dir': [1,0], # Direction
-            'speed': [speed, speed]
-        }) '''
