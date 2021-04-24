@@ -126,16 +126,18 @@ class Application(Frame):
         frameMotor = Frame(self)
         frameMotor.pack(side = BOTTOM, padx=10, pady=10)
 
-        self.btMleft = Button(frameMotor, text="Motor Left", command=lambda:self.motor.left())
+
+        self.defaultMotorSpeed = 120
+        self.btMleft = Button(frameMotor, text="Motor Left", command=lambda:self.motor.left(self.defaultMotorSpeed, 2))
         self.btMleft.pack(side = LEFT)
 
-        self.btMdefault = Button(frameMotor, text="Motor Straight", command=lambda:self.motor.straight())
+        self.btMdefault = Button(frameMotor, text="Motor Straight", command=lambda:self.motor.straight(self.defaultMotorSpeed, self.defaultMotorSpeed, 2))
         self.btMdefault.pack(side = LEFT)
         
-        self.btMdefault = Button(frameMotor, text="Motor Back", command=lambda:self.motor.back())
+        self.btMdefault = Button(frameMotor, text="Motor Back", command=lambda:self.motor.back(self.defaultMotorSpeed, self.defaultMotorSpeed, 2))
         self.btMdefault.pack(side = LEFT)
 
-        self.btMright = Button(frameMotor, text="Motor Right", command=lambda:self.motor.right())
+        self.btMright = Button(frameMotor, text="Motor Right", command=lambda:self.motor.right(self.defaultMotorSpeed, 2))
         self.btMright.pack(side = LEFT)
 
 
